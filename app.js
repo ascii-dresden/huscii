@@ -4,7 +4,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
 
-const api = require('./server/routes/api');
+const api = require('./server/api');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
