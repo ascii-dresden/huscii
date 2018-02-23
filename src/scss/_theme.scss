@@ -1,0 +1,54 @@
+// theme.scss
+
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+$ascii-primary-palette:   mat-palette($mat-blue);
+$ascii-secondary-palette: mat-palette($mat-grey, 600, 100, 800);
+$ascii-danger-palette:    mat-palette($mat-deep-orange);
+
+$white:    #FFFFFF;
+$gray-100: mat-color($mat-grey, 100, 1);
+$gray-200: mat-color($mat-grey, 200, 1);
+$gray-300: mat-color($mat-grey, 300, 1);
+$gray-400: mat-color($mat-grey, 400, 1);
+$gray-500: mat-color($mat-grey, 500, 1);
+$gray-600: mat-color($mat-grey, 600, 1);
+$gray-700: mat-color($mat-grey, 700, 1);
+$gray-800: mat-color($mat-grey, 800, 1);
+$gray-900: mat-color($mat-grey, 900, 1);
+$black:    #000000;
+
+$blue:   mat-color($mat-blue,   500, 1);
+$indigo: mat-color($mat-indigo, 500, 1);
+$purple: mat-color($mat-purple, 500, 1);
+$pink:   mat-color($mat-pink,   500, 1);
+$red:    mat-color($mat-red,    500, 1);
+$orange: mat-color($mat-orange, 500, 1);
+$yellow: mat-color($mat-yellow, 500, 1);
+$green:  mat-color($mat-green,  500, 1);
+$teal:   mat-color($mat-teal,   500, 1);
+$cyan:   mat-color($mat-cyan,   500, 1);
+
+$primary:   mat-color($ascii-primary-palette,   500, 1);
+$secondary: mat-color($ascii-secondary-palette, 600, 1);
+$success:   $green;
+$info:      $cyan;
+$warning:   $yellow;
+$danger:    mat-color($ascii-danger-palette, 500, 1);
+$light:     mat-color($mat-grey, 100, 1);
+$dark:      mat-color($mat-grey, 800, 1);
+
+$ascii-theme: mat-light-theme($ascii-primary-palette, $ascii-secondary-palette, $ascii-danger-palette);
+@include angular-material-theme($ascii-theme);
+
+$config:                 mat-typography-config();
+$font-family-sans-serif: $mat-font-family;
+$font-size-base:         (mat-font-size($config, body-1) / 16px) * 1rem;
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/grid";

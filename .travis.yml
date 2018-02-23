@@ -1,0 +1,35 @@
+dist: trusty
+
+language: node_js
+node_js:
+- 8
+
+env:
+- MOZ_HEADLESS=1
+
+addons:
+  firefox: latest
+
+branches:
+  only:
+  - master
+
+cache:
+  directories:
+  - "node_modules"
+
+before_script:
+- "yarn global add @angular/cli"
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+- sleep 3
+
+script:
+- ng lint
+- ng test --sr
+- ng build
+
+notifications:
+  email:
+    on_failure: never
+    on_success: never
