@@ -1,0 +1,11 @@
+.mat-toolbar {
+  &.mat-dark {
+    background: $dark;
+    color: $white;
+
+    button[mat-button].active {
+      background: $white;
+      color: $dark;
+    }
+  }
+}

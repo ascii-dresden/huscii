@@ -3,8 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'ascii-root',
   templateUrl: './app.component.html',
-  styles: []
+  styles: [`
+  .fill {
+    flex: 1 1 auto;
+  }
+  `]
 })
-export class AppComponent {
-  title = 'ascii';
-}
+export class AppComponent { }
