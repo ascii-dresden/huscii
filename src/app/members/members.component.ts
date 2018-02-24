@@ -18,7 +18,8 @@ import { filter } from 'rxjs/operators';
   selector: 'ascii-add-edit-member-dialog',
   template: `
   <form [formGroup]="form" (ngSubmit)="submit(form)">
-    <h5 mat-dialog-title>Add Member</h5>
+    <h5 mat-dialog-title *ngIf="!edit">Add Member</h5>
+    <h5 mat-dialog-title *ngIf="edit">Edit {{ name }}</h5>
     <mat-dialog-content>
       <mat-form-field style="width: 100%">
         <input matInput formControlName="firstName" placeholder="Given Name">
@@ -37,11 +38,17 @@ import { filter } from 'rxjs/operators';
 export class AddEditMemberDialogComponent implements OnInit {
 
   form: FormGroup;
+  edit = false;
+  name: string;
 
   constructor(
-    private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AddEditMemberDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: Member) { }
+    private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddEditMemberDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: Member) {
+    if (data.firstName) {
+      this.edit = true;
+      this.name = data.firstName + ' ' + data.lastName;
+    }
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -66,6 +73,9 @@ export class AddEditMemberDialogComponent implements OnInit {
     overflow: auto;
     max-height: 550px;
   }
+  .mat-column-position {
+    flex: 0 0 20px;
+  }
   `]
 })
 export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -73,7 +83,7 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
   private _sub = new Subscription();
 
   members: Member[] = [];
-  displayedColumns = ['displayName'];
+  displayedColumns = ['position', 'firstName', 'lastName'];
   dataSource = new MatTableDataSource<Member>(this.members);
   memberDialogRef: MatDialogRef<AddEditMemberDialogComponent>;
   selectedMember: Member;

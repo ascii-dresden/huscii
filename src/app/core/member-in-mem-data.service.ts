@@ -44,6 +44,8 @@ export class MemberInMemDataService implements InMemoryDbService {
           new Contact('phone', this.getPhone())
         ],
         false,
+        '2018-02-24T11:35:00.104Z',
+        '2018-02-24T11:35:00.104Z',
         new Meta(false)
       );
 
