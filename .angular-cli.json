@@ -58,6 +58,9 @@
   },
   "defaults": {
     "styleExt": "scss",
+    "build": {
+      "showCircularDependencies": false
+    },
     "component": {
       "inlineStyle": true}
   }
