@@ -28,8 +28,8 @@ import { filter } from 'rxjs/operators';
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-button type="button" mat-dialog-close>Cancel</button>
       <button mat-button type="submit">Save</button>
+      <button mat-button type="button" mat-dialog-close>Cancel</button>
     </mat-dialog-actions>
   </form>
   `
@@ -72,9 +72,9 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private _sub = new Subscription();
 
-  members: Member[];
+  members: Member[] = [];
   displayedColumns = ['displayName'];
-  dataSource = new MatTableDataSource<Member>([]);
+  dataSource = new MatTableDataSource<Member>(this.members);
   memberDialogRef: MatDialogRef<AddEditMemberDialogComponent>;
   selectedMember: Member;
   @ViewChild(MatSort) sort: MatSort;
@@ -113,12 +113,30 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
     this._sub.add(this.memberDialogRef.afterClosed()
       .subscribe(result => {
         if (result && result.lastName && result.firstName) {
-          const newMember = { lastName: result.lastName, firstName: result.firstName };
-          this._sub.add(this.memberService.create(newMember)
-            .subscribe((value: Member) => {
-              this.members.push(value);
-              this.dataSource.data = this.members;
-            }));
+          if (member) {
+            member.firstName = result.firstName;
+            member.lastName = result.lastName;
+
+            this._sub.add(this.memberService.update(member)
+              .subscribe((value: Member) => {
+                this.members.forEach(x => {
+                  if (x.id === member.id) {
+                    x.firstName = result.firstName;
+                    x.lastName = result.lastName;
+                  }
+                });
+                this.dataSource.data = this.members;
+              }));
+          } else {
+            const newMember = { lastName: result.lastName, firstName: result.firstName };
+
+            this._sub.add(this.memberService.create(newMember)
+              .subscribe((value: Member) => {
+                this.members.push(value);
+                this.dataSource.data = this.members;
+              })
+            );
+          }
         }
       })
     );
@@ -135,14 +153,4 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dataSource.data = members;
       }));
   }
-}
-
-export class MemberDataSource extends MatTableDataSource<Member> {
-
-
-
-  constructor() {
-    super();
-  }
-
 }

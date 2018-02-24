@@ -1,8 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 
-import { Identifiable } from './identifiable';
-
-export interface CrudRepository<T extends Identifiable> {
+export interface CrudRepository<T> {
 
   count(): number;
   delete(entity: T | number): void;

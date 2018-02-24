@@ -1,8 +1,13 @@
+i, span {
+  &.material-icons {
+    font-size: $font-size-base;
+  }
+}
+
 .mat-toolbar {
   &.mat-dark {
     background: $dark;
     color: $white;
-
     button[mat-button].active {
       background: $white;
       color: $dark;
