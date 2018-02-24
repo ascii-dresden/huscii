@@ -1,3 +1,54 @@
-<ul>
-  <li *ngFor="let member of members">{{ member.fullName }} &#x3C;{{ member.contacts[0].value }}&#x3E; ({{ member.contacts[1].value }}) </li>
-</ul>
+<div class="row pb-3">
+  <div class="col-12">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="w-100" style="margin-bottom: -1.25rem">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 text-right">
+          <button mat-raised-button color="primary" (click)="openAddEditMemberDialog()">
+            <mat-icon>add</mat-icon>Add
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <mat-card>
+      <ascii-card-header class="d-flex">
+        <mat-card-title class="mr-auto">Member List</mat-card-title>
+        <!-- TODO: Member List export -->
+        <!-- <button mat-mini-fab color="secondary"><mat-icon>archive</mat-icon></button> -->
+      </ascii-card-header>
+      <mat-card-content>
+        <mat-table #table [dataSource]="dataSource" matSort matSortActive="displayName">
+          <ng-container matColumnDef="displayName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+            <mat-cell *matCellDef="let member">
+              <a href="javascript:void(0);" (click)="selectMember(member)">{{ member.lastName }}, {{ member.firstName }}</a>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </mat-card-content>
+      <mat-card-actions>
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="col-md-6" *ngIf="selectedMember">
+    <mat-card class="mat-elevation-z6">
+      <ascii-card-header>
+          <mat-card-title class="mr-auto">{{ selectedMember.fullName }}</mat-card-title>
+          <button mat-mini-fab color="accent" (click)="openAddEditMemberDialog(selectedMember)"><mat-icon>edit</mat-icon></button>
+      </ascii-card-header>
+    </mat-card>
+  </div>
+</div>

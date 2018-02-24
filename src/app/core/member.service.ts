@@ -52,14 +52,17 @@ export class MemberService implements CrudRepository<Member> {
     );
   }
 
-  create(entity: Member): Observable<Member> {
-    throw new Error('Method not implemented.');
+  create(entity: any): Observable<Member> {
+    return this.http.post<Member>('/api/members', entity, cudOptions).pipe(
+      tap(() => this.log(`added member /w name='${entity.firstName}'`)),
+      catchError(this.handleError<any>(`addMember /w name='${name}'`, {}))
+    );
   }
 
   update(entity: Member): Observable<Member> {
-    return this.http.post<Member>('/api/members', entity, cudOptions).pipe(
-      tap(() => this.log(`added member /w name='${entity.fullName}'`)),
-      catchError(this.handleError<any>(`addMember /w name='${entity.fullName}'`, {}))
+    return this.http.put('/api/members', entity, cudOptions).pipe(
+      tap(() => this.log(`updated member /w id='${entity.id}'`)),
+      catchError(this.handleError<any>(`updateMember /w id='${entity.id}'`, entity))
     );
   }
 
