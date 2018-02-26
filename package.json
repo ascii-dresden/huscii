@@ -11,8 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "i18n": "ng xi18n --outputPath src/i18n --i18nFormat=xlf2",
-    "postinstall": "chmod +x ./bin/www"
+    "i18n": "ng xi18n --outputPath src/i18n --i18nFormat=xlf2"
   },
   "private": true,
   "dependencies": {

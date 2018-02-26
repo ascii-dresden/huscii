@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@app/shared';
 import { MembersRoutingModule } from './members-routing.module';
 
-import { MembersComponent, AddEditMemberDialogComponent } from './members.component';
+import { MembersComponent } from './members.component';
+import { MemberDetailsComponent } from './member-details.component';
+import { AddEditMemberDialogComponent } from './add-edit-member-dialog.component';
 
 @NgModule({
   imports: [
@@ -12,6 +14,7 @@ import { MembersComponent, AddEditMemberDialogComponent } from './members.compon
   ],
   declarations: [
     MembersComponent,
+    MemberDetailsComponent,
     AddEditMemberDialogComponent,
   ],
   entryComponents: [AddEditMemberDialogComponent]

@@ -15,8 +15,10 @@ import {
   MatDialogModule,
   MatCheckboxModule,
   MatDividerModule,
+  MatPaginatorIntl,
 } from '@angular/material';
 
+import { MatPaginatorIntlDe } from './mat-paginator-intl-de';
 import { MatCardHeaderComponent } from './mat-card-header/mat-card-header.component';
 
 @NgModule({
@@ -62,6 +64,9 @@ import { MatCardHeaderComponent } from './mat-card-header/mat-card-header.compon
   ],
   declarations: [
     MatCardHeaderComponent
+  ],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlDe }
   ]
 })
 export class SharedModule { }

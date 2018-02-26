@@ -1,24 +1,21 @@
 <div class="row pb-3">
   <div class="col-12">
     <mat-card>
-      <div class="row">
-        <div class="col-md-6">
-          <mat-form-field class="w-100" style="margin-bottom: -1.25rem">
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" i18n-placeholder="@@filter">
-          </mat-form-field>
-        </div>
-        <div class="col-md-6 text-right">
-          <button mat-raised-button color="primary" (click)="openAddEditMemberDialog()">
-            <mat-icon>add</mat-icon><span i18n>Add</span>
-          </button>
-        </div>
+      <div class="d-flex flex-row">
+        <mat-form-field class="mr-auto pr-3 w-100" style="margin-bottom: -1.25rem">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" i18n-placeholder="@@filter">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="onAdd()">
+          <i class="fa fa-plus"></i>
+          <span i18n>Add</span>
+        </button>
       </div>
     </mat-card>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 pb-3">
     <mat-card>
       <ascii-card-header class="d-flex">
         <mat-card-title class="mr-auto" i18n>Member List</mat-card-title>
@@ -35,14 +32,14 @@
           </ng-container>
 
           <ng-container matColumnDef="firstName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Given Name</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@firstName">Given Name</mat-header-cell>
             <mat-cell *matCellDef="let member">
               <a href="javascript:void(0);" (click)="selectMember(member)">{{ member.firstName }}</a>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="lastName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Surname</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@lastName">Surname</mat-header-cell>
             <mat-cell *matCellDef="let member">
               <a href="javascript:void(0);" (click)="selectMember(member)">{{ member.lastName }}</a>
             </mat-cell>
@@ -58,29 +55,7 @@
     </mat-card>
   </div>
 
-  <div class="col-md-6" *ngIf="selectedMember">
-    <mat-card class="mat-elevation-z6">
-      <ascii-card-header>
-          <mat-card-title class="mr-auto">{{ selectedMember.firstName }} {{ selectedMember.lastName }}</mat-card-title>
-          <button mat-mini-fab color="accent" (click)="openAddEditMemberDialog(selectedMember)"><mat-icon>edit</mat-icon></button>
-      </ascii-card-header>
-      <mat-card-content class="mt-3">
-        <dl>
-          <dt class="h5" *ngIf="selectedMember.boardMember" i18n>Board Member</dt>
-          <dt class="h5" *ngIf="!selectedMember.boardMember" i18n>Member</dt>
-          <dd>{{ selectedMember.firstName }} {{ selectedMember.lastName }}</dd>
-          <dt i18n>Since</dt>
-          <dd>{{ selectedMember.createdAt | date:'y' }}</dd>
-          <dt i18n>Contact</dt>
-          <dd>
-            <ul class="fa-ul">
-              <li *ngFor="let contact of selectedMember.contacts">
-                <i [ngClass]="'fa-li fa fa-' + contactIcon(contact.type)"></i>{{ contact.value }}
-              </li>
-            </ul>
-          </dd>
-        </dl>
-      </mat-card-content>
-    </mat-card>
+  <div id="selected-member" class="col-md-6 pb-3" *ngIf="selectedMember">
+    <ascii-member-details (edit)="onEdit(selectedMember)"></ascii-member-details>
   </div>
 </div>
