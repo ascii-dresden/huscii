@@ -4,12 +4,12 @@
       <div class="row">
         <div class="col-md-6">
           <mat-form-field class="w-100" style="margin-bottom: -1.25rem">
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" i18n-placeholder="@@filter">
           </mat-form-field>
         </div>
         <div class="col-md-6 text-right">
           <button mat-raised-button color="primary" (click)="openAddEditMemberDialog()">
-            <mat-icon>add</mat-icon>Add
+            <mat-icon>add</mat-icon><span i18n>Add</span>
           </button>
         </div>
       </div>
@@ -21,7 +21,7 @@
   <div class="col-md-6">
     <mat-card>
       <ascii-card-header class="d-flex">
-        <mat-card-title class="mr-auto">Member List</mat-card-title>
+        <mat-card-title class="mr-auto" i18n>Member List</mat-card-title>
         <!-- TODO: Member List export -->
         <!-- <button mat-mini-fab color="secondary"><mat-icon>archive</mat-icon></button> -->
       </ascii-card-header>
@@ -66,12 +66,12 @@
       </ascii-card-header>
       <mat-card-content class="mt-3">
         <dl>
-          <dt class="h5" *ngIf="selectedMember.boardMember">Board Member</dt>
-          <dt class="h5" *ngIf="!selectedMember.boardMember">Member</dt>
+          <dt class="h5" *ngIf="selectedMember.boardMember" i18n>Board Member</dt>
+          <dt class="h5" *ngIf="!selectedMember.boardMember" i18n>Member</dt>
           <dd>{{ selectedMember.firstName }} {{ selectedMember.lastName }}</dd>
-          <dt>Since</dt>
+          <dt i18n>Since</dt>
           <dd>{{ selectedMember.createdAt | date:'y' }}</dd>
-          <dt>Contact</dt>
+          <dt i18n>Contact</dt>
           <dd>
             <ul class="fa-ul">
               <li *ngFor="let contact of selectedMember.contacts">
@@ -81,9 +81,6 @@
           </dd>
         </dl>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>Remove</button>
-      </mat-card-actions>
     </mat-card>
   </div>
 </div>

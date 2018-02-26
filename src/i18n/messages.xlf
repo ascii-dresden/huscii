@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en">
+  <file original="ng.template" id="ngi18n">
+    <unit id="4691887509600985309">
+      <notes>
+        <note category="location">app/app.component.ts:4</note>
+      </notes>
+      <segment>
+        <source>Members</source>
+      </segment>
+    </unit>
+    <unit id="5105557512709552795">
+      <notes>
+        <note category="location">app/members/members.component.ts:3</note>
+      </notes>
+      <segment>
+        <source>Add Member</source>
+      </segment>
+    </unit>
+    <unit id="4470013530167002092">
+      <notes>
+        <note category="location">app/members/members.component.ts:4</note>
+      </notes>
+      <segment>
+        <source>Edit <ph id="0" equiv="INTERPOLATION" disp="{{ name }}"/></source>
+      </segment>
+    </unit>
+    <unit id="firstName">
+      <notes>
+        <note category="location">app/members/members.component.ts:7</note>
+      </notes>
+      <segment>
+        <source>Given Name</source>
+      </segment>
+    </unit>
+    <unit id="lastName">
+      <notes>
+        <note category="location">app/members/members.component.ts:10</note>
+      </notes>
+      <segment>
+        <source>Sur Name</source>
+      </segment>
+    </unit>
+    <unit id="2178387824018081109">
+      <notes>
+        <note category="location">app/members/members.component.ts:12</note>
+        <note category="location">app/members/members.component.ts:69</note>
+      </notes>
+      <segment>
+        <source>Board Member</source>
+      </segment>
+    </unit>
+    <unit id="type">
+      <notes>
+        <note category="location">app/members/members.component.ts:20</note>
+      </notes>
+      <segment>
+        <source>Type</source>
+      </segment>
+    </unit>
+    <unit id="value">
+      <notes>
+        <note category="location">app/members/members.component.ts:25</note>
+      </notes>
+      <segment>
+        <source>Value</source>
+      </segment>
+    </unit>
+    <unit id="8706043571193892070">
+      <notes>
+        <note category="location">app/members/members.component.ts:38</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{ name }}"/> will be removed on save.</source>
+      </segment>
+    </unit>
+    <unit id="4814285799071780083">
+      <notes>
+        <note category="location">app/members/members.component.ts:42</note>
+      </notes>
+      <segment>
+        <source>Remove</source>
+      </segment>
+    </unit>
+    <unit id="3768927257183755959">
+      <notes>
+        <note category="location">app/members/members.component.ts:47</note>
+      </notes>
+      <segment>
+        <source>Save</source>
+      </segment>
+    </unit>
+    <unit id="2159130950882492111">
+      <notes>
+        <note category="location">app/members/members.component.ts:48</note>
+      </notes>
+      <segment>
+        <source>Cancel</source>
+      </segment>
+    </unit>
+    <unit id="filter">
+      <notes>
+        <note category="location">app/members/members.component.ts:7</note>
+      </notes>
+      <segment>
+        <source>Filter</source>
+      </segment>
+    </unit>
+    <unit id="3249513483374643425">
+      <notes>
+        <note category="location">app/members/members.component.ts:12</note>
+      </notes>
+      <segment>
+        <source>Add</source>
+      </segment>
+    </unit>
+    <unit id="6443530207724423452">
+      <notes>
+        <note category="location">app/members/members.component.ts:24</note>
+      </notes>
+      <segment>
+        <source>Member List</source>
+      </segment>
+    </unit>
+    <unit id="6297950127540572260">
+      <notes>
+        <note category="location">app/members/members.component.ts:70</note>
+      </notes>
+      <segment>
+        <source>Member</source>
+      </segment>
+    </unit>
+    <unit id="7627583106648525877">
+      <notes>
+        <note category="location">app/members/members.component.ts:72</note>
+      </notes>
+      <segment>
+        <source>Since</source>
+      </segment>
+    </unit>
+    <unit id="7922989125096435449">
+      <notes>
+        <note category="location">app/members/members.component.ts:74</note>
+      </notes>
+      <segment>
+        <source>Contact</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

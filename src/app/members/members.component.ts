@@ -18,16 +18,16 @@ import { filter } from 'rxjs/operators';
   selector: 'ascii-add-edit-member-dialog',
   template: `
   <form [formGroup]="form" (ngSubmit)="submit(form)">
-    <h5 mat-dialog-title *ngIf="!edit">Add Member</h5>
-    <h5 mat-dialog-title *ngIf="edit">Edit {{ name }}</h5>
+    <h5 mat-dialog-title *ngIf="!edit" i18n>Add Member</h5>
+    <h5 mat-dialog-title *ngIf="edit" i18n>Edit {{ name }}</h5>
     <mat-dialog-content>
       <mat-form-field style="width: 100%">
-        <input matInput formControlName="firstName" placeholder="Given Name">
+        <input matInput formControlName="firstName" placeholder="Given Name" i18n-placeholder="@@firstName">
       </mat-form-field>
       <mat-form-field style="width: 100%">
-        <input matInput formControlName="lastName" placeholder="Sur Name">
+        <input matInput formControlName="lastName" placeholder="Sur Name" i18n-placeholder="@@lastName">
       </mat-form-field>
-      <mat-checkbox formControlName="boardMember">Board Member</mat-checkbox>
+      <mat-checkbox formControlName="boardMember" i18n>Board Member</mat-checkbox>
       <mat-divider class="my-3"></mat-divider>
       <div formArrayName="contacts">
         <div class="row" *ngFor="let contact of contacts.controls; let i=index" [formGroupName]="i">
@@ -35,12 +35,12 @@ import { filter } from 'rxjs/operators';
             <div class="row">
               <div class="col-6">
                 <mat-form-field style="width: 100%">
-                  <input matInput formControlName="type" placeholder="Type">
+                  <input matInput formControlName="type" placeholder="Type" i18n-placeholder="@@type">
                 </mat-form-field>
               </div>
               <div class="col-6">
                 <mat-form-field style="width: 100%">
-                  <input matInput formControlName="value" placeholder="Value">
+                  <input matInput formControlName="value" placeholder="Value" i18n-placeholder="@@value">
                 </mat-form-field>
               </div>
             </div>
@@ -51,10 +51,19 @@ import { filter } from 'rxjs/operators';
           </div>
         </div>
       </div>
+      <div class="d-flex">
+        <div class="mr-auto">
+          <p *ngIf="delete" i18n>{{ name }} will be removed on save.</p>
+        </div>
+        <div>
+          <mat-checkbox class="float-right" formControlName="delete" *ngIf="edit" align="end"
+          [(ngModel)]="delete" i18n>Remove</mat-checkbox>
+        </div>
+      </div>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-button type="submit">Save</button>
-      <button mat-button type="button" mat-dialog-close>Cancel</button>
+      <button mat-button type="submit" i18n>Save</button>
+      <button mat-button type="button" mat-dialog-close i18n>Cancel</button>
     </mat-dialog-actions>
   </form>
   `
@@ -65,6 +74,7 @@ export class AddEditMemberDialogComponent implements OnInit {
   edit = false;
   name: string;
   member: Member;
+  delete = false;
 
   constructor(
     private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddEditMemberDialogComponent>,
@@ -81,7 +91,8 @@ export class AddEditMemberDialogComponent implements OnInit {
       firstName: this.data ? this.data.firstName : '',
       lastName: this.data ? this.data.lastName : '',
       boardMember: this.data ? this.data.boardMember : false,
-      contacts: this.formBuilder.array([])
+      contacts: this.formBuilder.array([]),
+      delete: false
     });
     this.data.contacts.length ? this.setContacts(this.data.contacts) : this.addContact();
   }
@@ -97,7 +108,8 @@ export class AddEditMemberDialogComponent implements OnInit {
       firstName: formModel.firstName,
       lastName: formModel.lastName,
       boardMember: formModel.boardMember,
-      contacts: contactArr
+      contacts: contactArr,
+      delete: formModel.delete
     });
   }
 
@@ -196,18 +208,28 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(result => {
         if (result && result.lastName && result.firstName) {
           if (member) {
-            member.firstName = result.firstName;
-            member.lastName = result.lastName;
-            member.boardMember = result.boardMember;
-            member.contacts = result.contacts;
+            if (result.delete) {
+              this._sub.add(this.memberService.delete(member)
+                .subscribe((value: Member) => {
+                  console.log(member);
+                  this.members = this.members.filter(v => v !== member);
+                  this.selectedMember = undefined;
+                  this.dataSource.data = this.members;
+                }));
+            } else {
+              member.firstName = result.firstName;
+              member.lastName = result.lastName;
+              member.boardMember = result.boardMember;
+              member.contacts = result.contacts;
 
-            this._sub.add(this.memberService.update(member)
-              .subscribe((value: Member) => {
-                this.members.forEach(x => {
-                  if (x.id === member.id) { x = member; }
-                });
-                this.dataSource.data = this.members;
-              }));
+              this._sub.add(this.memberService.update(member)
+                .subscribe((value: Member) => {
+                  this.members.forEach(x => {
+                    if (x.id === member.id) { x = member; }
+                  });
+                  this.dataSource.data = this.members;
+                }));
+            }
           } else {
             const newMember = {
               lastName: result.lastName,
@@ -219,6 +241,7 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
             this._sub.add(this.memberService.create(newMember)
               .subscribe((value: Member) => {
                 this.members.push(value);
+                this.selectedMember = value;
                 this.dataSource.data = this.members;
               })
             );
@@ -236,7 +259,6 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
     this._sub.add(this.memberService.findAll()
       .subscribe(members => {
         this.members = members;
-        console.log(this.members[0]);
         this.dataSource.data = members;
       })
     );

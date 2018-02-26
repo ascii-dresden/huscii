@@ -10,7 +10,9 @@ import { Member } from '@app/members';
 import { CrudRepository } from './crud-repository';
 import { Logger } from './logger.service';
 
-const cudOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class MemberService implements CrudRepository<Member> {
@@ -21,12 +23,13 @@ export class MemberService implements CrudRepository<Member> {
     throw new Error('Method not implemented.');
   }
 
-  delete(entity: Member | number): void {
+  delete(entity: Member | number): Observable<Member> {
     const id = typeof entity === 'number' ? entity : entity.id;
+    const url = `api/members/${id}`;
 
-    this.http.delete<Member>('/api/members' + id, cudOptions).pipe(
-      tap(() => this.log(`delete member /w id='${id}'`)),
-      catchError(this.handleError<Member | number>(`deleteMember /w id='${id}'`, entity))
+    return this.http.delete<Member>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted member w/ id='${id}'`)),
+      catchError(this.handleError<Member>(`deleteMember /w id='${id}'`))
     );
   }
 
@@ -39,30 +42,30 @@ export class MemberService implements CrudRepository<Member> {
   }
 
   findAll(ids?: number): Observable<Member[]> {
-    return this.http.get<Member[]>('/api/members').pipe(
-      tap(() => this.log('fetched members form /api/members')),
-      catchError(this.handleError<Member[]>('getMembers from /api/members', []))
+    return this.http.get<Member[]>('api/members').pipe(
+      tap(() => this.log('fetched members')),
+      catchError(this.handleError('getMembers', []))
     );
   }
 
   find(id: number): Observable<Member> {
-    return this.http.get<Member>('/api/members' + id).pipe(
+    return this.http.get<Member>('api/members' + id).pipe(
       tap(() => this.log(`fetched member w/ id='${id}'`)),
-      catchError(this.handleError<any>(`getMember w/ id='${id}'`, {}))
+      catchError(this.handleError<Member>(`getMember w/ id='${id}'`))
     );
   }
 
   create(entity: any): Observable<Member> {
-    return this.http.post<Member>('/api/members', entity, cudOptions).pipe(
+    return this.http.post<Member>('api/members', entity, httpOptions).pipe(
       tap(() => this.log(`added member /w name='${entity.firstName}'`)),
-      catchError(this.handleError<any>(`addMember /w name='${name}'`, {}))
+      catchError(this.handleError<Member>(`addMember /w name='${name}'`))
     );
   }
 
   update(entity: Member): Observable<Member> {
-    return this.http.put('/api/members', entity, cudOptions).pipe(
+    return this.http.put('api/members', entity, httpOptions).pipe(
       tap(() => this.log(`updated member /w id='${entity.id}'`)),
-      catchError(this.handleError<any>(`updateMember /w id='${entity.id}'`, entity))
+      catchError(this.handleError<any>(`updateMember /w id='${entity.id}'`))
     );
   }
 
