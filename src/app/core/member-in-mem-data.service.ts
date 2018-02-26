@@ -35,21 +35,21 @@ export class MemberInMemDataService implements InMemoryDbService {
     for (i = 0; i < names.length; i++) {
       const firstName = names[i].substr(0, names[i].indexOf(' '));
       const lastName = names[i].substr(names[i].indexOf(' ') + 1);
-      const member = new Member(
-        i,
-        lastName,
-        firstName,
-        [
-          new Contact('email', this.getEmail(firstName, lastName)),
-          new Contact('phone', this.getPhone())
+      const member = {
+        id: i,
+        lastName: lastName,
+        firstName: firstName,
+        contacts: [
+          { type: 'Email', value: this.getEmail(firstName, lastName) },
+          { type: 'Phone', value: this.getPhone() }
         ],
-        false,
-        '2018-02-24T11:35:00.104Z',
-        '2018-02-24T11:35:00.104Z',
-        new Meta(false)
-      );
+        boardMember: false,
+        createdAt: '2018-02-24T11:35:00.104Z',
+        updatedAt: '2018-02-24T11:35:00.104Z',
+        meta: new Meta(false)
+      };
 
-      members.push(member);
+      members.push(member as Member);
     }
 
     let returnType = 'object';

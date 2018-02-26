@@ -30,8 +30,7 @@
           <ng-container matColumnDef="position">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let member">
-              <i class="material-icons text-primary" *ngIf="!member.boardMember">person</i>
-              <i class="material-icons text-danger" *ngIf="member.boardMember">star</i>
+              <i class="fa" [ngClass]="member.boardMember ? 'fa-star text-warning' : 'fa-user text-primary'"></i>
             </mat-cell>
           </ng-container>
 
@@ -67,14 +66,20 @@
       </ascii-card-header>
       <mat-card-content class="mt-3">
         <dl>
-          <dt>Name</dt>
+          <dt class="h5" *ngIf="selectedMember.boardMember">Board Member</dt>
+          <dt class="h5" *ngIf="!selectedMember.boardMember">Member</dt>
           <dd>{{ selectedMember.firstName }} {{ selectedMember.lastName }}</dd>
           <dt>Since</dt>
           <dd>{{ selectedMember.createdAt | date:'y' }}</dd>
+          <dt>Contact</dt>
+          <dd>
+            <ul class="fa-ul">
+              <li *ngFor="let contact of selectedMember.contacts">
+                <i [ngClass]="'fa-li fa fa-' + contactIcon(contact.type)"></i>{{ contact.value }}
+              </li>
+            </ul>
+          </dd>
         </dl>
-        <ul class="fa-ul">
-          <li *ngFor="let contact of selectedMember.contacts"><i [ngClass]="'fa-li fa fa-' + contact.type"></i>{{ contact.value }}</li>
-        </ul>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button>Remove</button>

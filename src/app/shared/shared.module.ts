@@ -13,6 +13,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatDialogModule,
+  MatCheckboxModule,
+  MatDividerModule,
 } from '@angular/material';
 
 import { MatCardHeaderComponent } from './mat-card-header/mat-card-header.component';
@@ -34,6 +36,8 @@ import { MatCardHeaderComponent } from './mat-card-header/mat-card-header.compon
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
+    MatCheckboxModule,
+    MatDividerModule,
   ],
   exports: [
     CommonModule,
@@ -51,6 +55,8 @@ import { MatCardHeaderComponent } from './mat-card-header/mat-card-header.compon
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
+    MatCheckboxModule,
+    MatDividerModule,
 
     MatCardHeaderComponent
   ],

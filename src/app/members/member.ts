@@ -1,14 +1,11 @@
 import { Meta } from '@app/shared';
 
 export class Contact {
-  constructor(public type: string, public value: string) {
-    if (type === 'email') {
-      type = 'envelope';
-    }
-  }
+  type = '';
+  value = '';
 }
 
-export class Member {
+/*export class Member {
 
   public id: number | string;
 
@@ -16,4 +13,15 @@ export class Member {
     public boardMember: boolean, public createdAt: string, public updatedAt: string, public meta: Meta) {
     this.id = _id;
   }
+}*/
+
+export class Member {
+  id: number;
+  firstName: string;
+  lastName: string;
+  contacts: Contact[];
+  boardMember: false;
+  createdAt: string;
+  updatedAt: string;
+  meta: Meta;
 }
