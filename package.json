@@ -4,6 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "doc:build": "compodoc -d doc -p src/tsconfig.app.json",
+    "doc:serve": "compodoc -d doc -s",
+    "doc:buildandserve": "compodoc -d doc -p src/tsconfig.app.json -s",
     "server": "./bin/www",
     "start": "ng serve --aot",
     "start:de": "ng serve --aot --i18n-file=src/i18n/messages.de.xlf --locale=de --i18n-format=xlf2",
@@ -45,6 +48,7 @@
     "@angular/cli": "1.6.8",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
+    "@compodoc/compodoc": "^1.0.7",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",

@@ -11,12 +11,15 @@ import { EventEmitter, Injectable } from '@angular/core';
 @Injectable()
 export class EmitterService {
 
+  /** Emitter object which stores registered event emitters */
   private static _emitters: { [ID: string]: EventEmitter<any> } = {};
 
+  /** Get or register new event emitter */
   static get(ID: string): EventEmitter<any> {
     if (!this._emitters[ID]) {
       this._emitters[ID] = new EventEmitter();
     }
+
     return this._emitters[ID];
   }
 }
