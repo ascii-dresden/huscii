@@ -24,6 +24,7 @@ export class AddEditMemberDialogComponent implements OnInit {
     }
   }
 
+  /** @inheritDoc */
   ngOnInit() {
     this.data = this.data ? this.data : new Member();
     this.form = this.formBuilder.group({
@@ -33,7 +34,6 @@ export class AddEditMemberDialogComponent implements OnInit {
       contacts: this.formBuilder.array([]),
       delete: false
     });
-    console.log(this.data);
     this.data.contacts.length ? this.setContacts(this.data.contacts) : this.addContact();
   }
 

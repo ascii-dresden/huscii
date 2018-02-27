@@ -55,7 +55,7 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.filter = filterValue;
   }
 
-  selectMember(member: Member) {
+  selectMember(member: Member | undefined) {
     this.selectedMember = member;
   }
 
@@ -91,22 +91,31 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
   onEdit(member: Member) {
     this.memberDialogRef = this.dialog.open(AddEditMemberDialogComponent, {
       width: '500px',
-      data: {
-        firstName: member.firstName,
-        lastName: member.lastName,
-        boardMember: member.boardMember,
-        contacts: member.contacts,
-      }
+      data: member
     });
 
     this._sub.add(this.memberDialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.members.forEach((p, i) => {
-          if (member === p) {
-            this.members[i] = result;
-          }
-        });
-        this._sub.add(this.memberService.update(result).subscribe());
+        if (result.delete) {
+          this._sub.add(this.memberService.delete(member).subscribe(_ => {
+            this.members = this.members.filter(v => v !== member);
+            this.selectMember(undefined);
+            this.dataSource.data = this.members;
+          }));
+        } else {
+          member.firstName = result.firstName;
+          member.lastName = result.lastName;
+          member.boardMember = result.boardMember;
+          member.contacts = result.contacts;
+
+          this._sub.add(this.memberService.update(member).subscribe(value => {
+            this.members.forEach((p, i) => {
+              if (value === p) {
+                this.members[i] = value;
+              }
+            });
+          }));
+        }
       }
     }));
   }
