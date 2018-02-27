@@ -56,6 +56,8 @@
   </div>
 
   <div id="selected-member" class="col-md-6 pb-3" *ngIf="selectedMember">
-    <ascii-member-details (edit)="onEdit(selectedMember)"></ascii-member-details>
+    <ascii-member-details [fullName]="fullName(selectedMember)" [boardMember]="selectedMember.boardMember" [createdAt]="selectedMember.createdAt"
+      [contacts]="selectedMember.contacts" (edit)="onEdit(selectedMember)">
+    </ascii-member-details>
   </div>
 </div>

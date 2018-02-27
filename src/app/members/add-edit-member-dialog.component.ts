@@ -13,20 +13,19 @@ export class AddEditMemberDialogComponent implements OnInit {
   form: FormGroup;
   edit = false;
   name: string;
-  member: Member;
   delete = false;
 
   constructor(
     private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddEditMemberDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: Member) {
-    if (data.firstName) {
+    if (data) {
       this.edit = true;
       this.name = data.firstName + ' ' + data.lastName;
     }
   }
 
   ngOnInit() {
-    this.member = this.data ? this.data : new Member();
+    this.data = this.data ? this.data : new Member();
     this.form = this.formBuilder.group({
       firstName: this.data ? this.data.firstName : '',
       lastName: this.data ? this.data.lastName : '',
@@ -34,6 +33,7 @@ export class AddEditMemberDialogComponent implements OnInit {
       contacts: this.formBuilder.array([]),
       delete: false
     });
+    console.log(this.data);
     this.data.contacts.length ? this.setContacts(this.data.contacts) : this.addContact();
   }
 

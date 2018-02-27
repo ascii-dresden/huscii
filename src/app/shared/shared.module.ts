@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -18,7 +18,7 @@ import {
   MatPaginatorIntl,
 } from '@angular/material';
 
-import { MatPaginatorIntlDe } from './mat-paginator-intl-de';
+import { MatPaginatorIntlImpl } from './mat-paginator-intl-impl';
 import { MatCardHeaderComponent } from './mat-card-header/mat-card-header.component';
 
 @NgModule({
@@ -66,7 +66,7 @@ import { MatCardHeaderComponent } from './mat-card-header/mat-card-header.compon
     MatCardHeaderComponent
   ],
   providers: [
-    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlDe }
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlImpl }
   ]
 })
 export class SharedModule { }

@@ -46,7 +46,7 @@ export class MemberInMemDataService implements InMemoryDbService {
         boardMember: false,
         createdAt: '2018-02-24T11:35:00.104Z',
         updatedAt: '2018-02-24T11:35:00.104Z',
-        meta: new Meta(false)
+        meta: new Meta()
       };
 
       members.push(member as Member);

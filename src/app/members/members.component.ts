@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, Inject, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 
 import { MemberService, EmitterService } from '@app/core';
 import { Member, Contact } from '@app/members';
@@ -23,7 +23,7 @@ import { AddEditMemberDialogComponent } from './add-edit-member-dialog.component
   }
   `]
 })
-export class MembersComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private _sub = new Subscription();
   members: Member[] = [];
@@ -45,11 +45,6 @@ export class MembersComponent implements OnInit, AfterViewInit, OnChanges, OnDes
     this.dataSource.paginator = this.paginator;
   }
 
-  ngOnChanges() {
-    this._sub.add(EmitterService.get('MEMBER_COMPONENT_LIST')
-      .subscribe(data => this.members = data));
-  }
-
   ngOnDestroy() {
     this._sub.unsubscribe();
   }
@@ -61,18 +56,16 @@ export class MembersComponent implements OnInit, AfterViewInit, OnChanges, OnDes
   }
 
   selectMember(member: Member) {
-    this.memberService.selectMember(member);
+    this.selectedMember = member;
+  }
+
+  fullName(member: Member) {
+    return member.firstName + ' ' + member.lastName;
   }
 
   onAdd() {
     this.memberDialogRef = this.dialog.open(AddEditMemberDialogComponent, {
-      width: '500px',
-      data: {
-        firstName: '',
-        lastName: '',
-        boardMember: false,
-        contacts: []
-      }
+      width: '500px'
     });
 
     this._sub.add(this.memberDialogRef.afterClosed().subscribe(result => {
@@ -114,30 +107,6 @@ export class MembersComponent implements OnInit, AfterViewInit, OnChanges, OnDes
           }
         });
         this._sub.add(this.memberService.update(result).subscribe());
-      }
-    }));
-  }
-
-  onDelete(member?: Member) {
-    this.memberDialogRef = this.dialog.open(AddEditMemberDialogComponent, {
-      width: '500px',
-      data: {
-        firstName: member.firstName,
-        lastName: member.lastName,
-        boardMember: member.boardMember,
-        contacts: member.contacts,
-      }
-    });
-
-    this._sub.add(this.memberDialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this._sub.add(this.memberService.delete(member)
-          .subscribe((value: Member) => {
-            console.log(member);
-            this.members = this.members.filter(v => v !== member);
-            this.selectMember(undefined);
-            this.dataSource.data = this.members;
-          }));
       }
     }));
   }

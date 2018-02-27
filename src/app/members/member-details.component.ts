@@ -1,41 +1,24 @@
-import { Component, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { MemberService } from '@app/core';
-import { Member } from '@app/members';
-import { Subscription } from 'rxjs/Subscription';
-import { AddEditMemberDialogComponent } from '@app/members/add-edit-member-dialog.component';
+import { Contact } from '@app/members';
 
 @Component({
   selector: 'ascii-member-details',
   templateUrl: './member-details.component.html'
 })
-export class MemberDetailsComponent implements OnDestroy {
+export class MemberDetailsComponent {
 
-  private _sub = new Subscription();
-  memberDialogRef: MatDialogRef<AddEditMemberDialogComponent>;
-  member: Member;
+  @Input() fullName: string;
+  @Input() boardMember: boolean;
+  @Input() createdAt: string;
+  @Input() contacts: Contact[];
   @Output() edit = new EventEmitter();
-  @Output() remove = new EventEmitter();
-
-  constructor(private memberService: MemberService, public dialog: MatDialog) {
-    this._sub.add(this.memberService.memberSelected$
-    .subscribe(member => this.member = member));
-  }
-
-  ngOnDestroy() {
-    this._sub.unsubscribe();
-  }
 
   onEdit() {
     this.edit.emit();
   }
 
-  onRemove() {
-    this.remove.emit();
-  }
-
-  contactIcon(type: string): string {
+  contactIcon(type: string) {
     type = type.toLowerCase();
 
     if (type === ('email' || 'mail')) {
