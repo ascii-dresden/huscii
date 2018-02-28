@@ -7,7 +7,7 @@ class MockErrorHandler implements ErrorHandler {
   handleError = jasmine.createSpy('handleError');
 }
 
-describe('logger service', () => {
+describe('LoggerService', () => {
 
   let logSpy: jasmine.Spy;
   let warnSpy: jasmine.Spy;
@@ -27,24 +27,18 @@ describe('logger service', () => {
     errorHandler = injector.get(ErrorHandler);
   });
 
-  describe('log', () => {
-    it('should delegate to console.log', () => {
-      logger.log('param1', 'param2', 'param3');
-      expect(console.log).toHaveBeenCalledWith('param1', 'param2', 'param3');
-    });
+  it('[LoggerService/T001] should delegate to console.log', () => {
+    logger.log('param1', 'param2', 'param3');
+    expect(console.log).toHaveBeenCalledWith('param1', 'param2', 'param3');
   });
 
-  describe('warn', () => {
-    it('should delegate to console.warn', () => {
-      logger.warn('param1', 'param2', 'param3');
-      expect(console.warn).toHaveBeenCalledWith('param1', 'param2', 'param3');
-    });
+  it('[LoggerService/T002] should delegate to console.warn', () => {
+    logger.warn('param1', 'param2', 'param3');
+    expect(console.warn).toHaveBeenCalledWith('param1', 'param2', 'param3');
   });
 
-  describe('error', () => {
-    it('should delegate to ErrorHandler', () => {
-      logger.error('param1', 'param2', 'param3');
-      expect(errorHandler.handleError).toHaveBeenCalledWith('param1 param2 param3');
-    });
+  it('[LoggerService/T003] should delegate to ErrorHandler', () => {
+    logger.error('param1', 'param2', 'param3');
+    expect(errorHandler.handleError).toHaveBeenCalledWith('param1 param2 param3');
   });
 });

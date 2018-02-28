@@ -9,7 +9,7 @@ describe('EmitterService', () => {
     });
   });
 
-  it('should be created', inject([EmitterService], (service: EmitterService) => {
+  it('[EmitterService/T001] should be created', inject([EmitterService], (service: EmitterService) => {
     expect(service).toBeTruthy();
   }));
 });
