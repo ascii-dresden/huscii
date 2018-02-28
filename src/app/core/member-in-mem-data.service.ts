@@ -9,32 +9,49 @@ import 'rxjs/add/operator/delay';
 import { Member, Contact } from '@app/members';
 import { Meta } from '@app/shared';
 
-// Names generated at http://random-name-generator.info/random/
-const names = [
-  'Johnathan Cook',
-  'Marcella Barber',
-  'Nina Munoz',
-  'Henrietta Banks',
-];
-
+/** In memory api server. This class is only for develpment purposes. */
 @Injectable()
 export class MemberInMemDataService implements InMemoryDbService {
 
+  /** Names generated at http://random-name-generator.info/random/ */
+  names = [
+    'Johnathan Cook',
+    'Marcella Barber',
+    'Nina Munoz',
+    'Henrietta Banks',
+  ];
+
+  /**
+   * Returns an email address.
+   *
+   * @param {string} first Members given name
+   * @param {string} last Members surname
+   * @returns {string} Mock email address
+   */
   getEmail(first: string, last: string): string {
     return first.toLowerCase() + '.' + last.toLowerCase() + '@huscii.tld';
   }
 
+  /** Returns a random phone number */
   getPhone(): string {
     return '01' + Math.floor(200000000 + Math.random() * 900000000).toString();
   }
 
+  /**
+   * Creates an in memory database.
+   *
+   * @param {RequestInfo} reqInfo Request information
+   *
+   * @returns {{} | Observable<{}> | Promise<{}>} Either Object, Observable or Promise depending on preffered
+   * data processing preferences.
+   */
   createDb(reqInfo?: RequestInfo): {} | Observable<{}> | Promise<{}> {
     let i: number;
     const members: Member[] = [];
 
-    for (i = 0; i < names.length; i++) {
-      const firstName = names[i].substr(0, names[i].indexOf(' '));
-      const lastName = names[i].substr(names[i].indexOf(' ') + 1);
+    for (i = 0; i < this.names.length; i++) {
+      const firstName = this.names[i].substr(0, this.names[i].indexOf(' '));
+      const lastName = this.names[i].substr(this.names[i].indexOf(' ') + 1);
       const member = {
         id: i,
         lastName: lastName,

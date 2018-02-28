@@ -11,8 +11,10 @@ import { AppComponent } from './app.component';
 import { SharedModule } from '@app/shared';
 import { CoreModule } from '@app/core';
 
+/** Registeres german locale */
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
+/** Applications root module */
 @NgModule({
   declarations: [AppComponent],
   imports: [

@@ -8,6 +8,7 @@ import {
   HostBinding
 } from '@angular/core';
 
+/** Custom styled mat card header with gray backgroup and custom padding and font sizes */
 @Component({
   moduleId: module.id,
   selector: 'ascii-card-header',
@@ -41,10 +42,13 @@ import {
 })
 export class MatCardHeaderComponent implements AfterViewInit {
 
+  /** Css class of the component */
   @HostBinding('class.mat-card-header') true;
 
+  /** Constructor. */
   constructor(private ref: ElementRef) { }
 
+  /** Adds a custom css class to its parent component */
   ngAfterViewInit() {
     this.ref.nativeElement.parentElement.classList.add('ascii-card');
   }

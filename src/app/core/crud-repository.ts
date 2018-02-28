@@ -7,22 +7,22 @@ export interface CrudRepository<T> {
   count(): number;
 
   /** Deletes a given entity */
-  delete(entity: T | number): void;
+  delete(entity: T | number): Observable<T>;
 
   /** Deletes either all or given entities */
-  deleteAll(entities?: T): void;
+  deleteAll(entities?: T[]): Observable<T[]>;
 
   /** Returns whether an entity exists */
   exists(entity: T | number): boolean;
 
   /** Returns all instances of the type */
-  findAll(ids?: number): Observable<T[]>;
+  findAll(ids?: number[]): Observable<T[]>;
 
   /** Retrieves an entity by its id */
   find(id: number): Observable<T>;
 
   /** Creates a given entity */
-  create(entity: any): Observable<T>;
+  create(entity: T): Observable<T>;
 
   /** Updates a given entity */
   update(entity: T): Observable<T>;

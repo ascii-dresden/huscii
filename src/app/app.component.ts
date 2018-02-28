@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+/** Applications root component */
 @Component({
   selector: 'ascii-root',
   templateUrl: './app.component.html',

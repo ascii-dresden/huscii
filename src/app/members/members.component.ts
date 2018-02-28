@@ -10,6 +10,7 @@ import { filter } from 'rxjs/operators';
 
 import { AddEditMemberDialogComponent } from './add-edit-member-dialog.component';
 
+/** Members module root component. Displays all ascii members. */
 @Component({
   selector: 'ascii-members',
   templateUrl: './members.component.html',
@@ -25,44 +26,76 @@ import { AddEditMemberDialogComponent } from './add-edit-member-dialog.component
 })
 export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  /** Subscriptions */
   private _sub = new Subscription();
+
+  /** Fetched members */
   members: Member[] = [];
+
+  /** Displayed columns in member table */
   displayedColumns = ['position', 'firstName', 'lastName'];
+
+  /** Member table data source */
   dataSource = new MatTableDataSource<Member>(this.members);
+
+  /**
+   * Reference to the Material Dialog.
+   * @see {@link AddEditMemberDialogComponent}
+   */
   memberDialogRef: MatDialogRef<AddEditMemberDialogComponent>;
+
+  /** Selected member from the table */
   selectedMember: Member;
+
+  /** Sort property */
   @ViewChild(MatSort) sort: MatSort;
+
+  /** Paginator property */
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private memberService: MemberService, public dialog: MatDialog) { }
 
+  /** Fetches all members */
   ngOnInit() {
     this.getMembers();
   }
 
+  /** Initializes sort and pagination */
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
+  /** Unsubscribes from all subscriptions */
   ngOnDestroy() {
     this._sub.unsubscribe();
   }
 
+  /** Processes the user input */
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
   }
 
+  /** Selects a member from the table */
   selectMember(member: Member | undefined) {
     this.selectedMember = member;
   }
 
+  /**
+   * Returns the members full name
+   * @param member Member entity
+   * @returns Members full name
+   */
   fullName(member: Member) {
     return member.firstName + ' ' + member.lastName;
   }
 
+  /**
+   * Add listener. Opens the Dialog and handles the after close event
+   * which calls the http data service create method.
+   */
   onAdd() {
     this.memberDialogRef = this.dialog.open(AddEditMemberDialogComponent, {
       width: '500px'
@@ -70,12 +103,11 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this._sub.add(this.memberDialogRef.afterClosed().subscribe(result => {
       if (result && result.lastName && result.firstName) {
-        const newMember = {
-          lastName: result.lastName,
-          firstName: result.firstName,
-          boardMember: result.boardMember,
-          contacts: result.contacts
-        };
+        const newMember = new Member();
+        newMember.lastName = result.lastName;
+        newMember.firstName = result.firstName;
+        newMember.boardMember = result.boardMember;
+        newMember.contacts = result.contacts;
 
         this._sub.add(this.memberService.create(newMember)
           .subscribe((value: Member) => {
@@ -88,6 +120,11 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
     }));
   }
 
+  /**
+   * Edit listener. Opens the Dialog and handles the after close event
+   * which calls the http data service update method.
+   * @param member Member entity
+   */
   onEdit(member: Member) {
     this.memberDialogRef = this.dialog.open(AddEditMemberDialogComponent, {
       width: '500px',
@@ -120,6 +157,7 @@ export class MembersComponent implements OnInit, AfterViewInit, OnDestroy {
     }));
   }
 
+  /** Gets all the members from the http data service */
   private getMembers() {
     this._sub.add(this.memberService.findAll()
       .subscribe(members => {

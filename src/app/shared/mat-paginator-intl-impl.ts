@@ -3,11 +3,19 @@ import { MatPaginatorIntl } from '@angular/material';
 
 import { Subject } from 'rxjs/Subject';
 
+/** Multilingal Material paginator implementation */
 @Injectable()
 export class MatPaginatorIntlImpl extends MatPaginatorIntl {
 
+  /** 'of' string */
   private of: string;
 
+  /**
+   * Constructor.
+   *
+   * Sets the labels depending on the {@link LOCALE_ID}
+   * @param locale Angulars {@link LOCALE_ID}
+   */
   constructor(@Inject(LOCALE_ID) private locale: string) {
     super();
 
@@ -23,6 +31,7 @@ export class MatPaginatorIntlImpl extends MatPaginatorIntl {
     }
   }
 
+  /** Uses 'of' for range label. */
   getRangeLabel = (page: number, pageSize: number, length: number): string => {
     if (length === 0 || pageSize === 0) {
       return `0 ${this.of} ${length}`;

@@ -7,6 +7,7 @@ import { MembersComponent } from './members.component';
 import { MemberDetailsComponent } from './member-details.component';
 import { AddEditMemberDialogComponent } from './add-edit-member-dialog.component';
 
+/** Lazy loading member module. Display, create, edit, and remove ascii members. */
 @NgModule({
   imports: [
     SharedModule,
