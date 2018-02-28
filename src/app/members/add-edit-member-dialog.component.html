@@ -8,7 +8,7 @@
     <mat-form-field style="width: 100%">
       <input name="input-last-name" matInput formControlName="lastName" placeholder="Sur Name" i18n-placeholder="@@lastName">
     </mat-form-field>
-    <mat-checkbox name="cp-board-member" formControlName="boardMember" i18n>Board Member</mat-checkbox>
+    <mat-checkbox name="cb-board-member" formControlName="boardMember" i18n>Board Member</mat-checkbox>
     <mat-divider class="my-3"></mat-divider>
     <div id="form-array-contacts" formArrayName="contacts">
       <div [id]="'form-array-contacts-' + i" class="row form-array-contact-item" *ngFor="let contact of contacts.controls; let i=index" [formGroupName]="i">
@@ -27,10 +27,10 @@
           </div>
         </div>
         <div class="col-1 px-1 px-md-2">
-          <a [name]="'btn-add-contact' + i" href="javascript:void(0);" (click)="addContact()">
+          <a [id]="'btn-add-contact-' + i" href="javascript:void(0);" (click)="addContact()">
             <i class="fa fa-plus-circle"></i>
           </a>
-          <a [name]="'btn-remove-contact' + i" href="javascript:void(0);" (click)="removeContact(i)">
+          <a [id]="'btn-remove-contact-' + i" href="javascript:void(0);" (click)="removeContact(i)">
             <i class="fa fa-minus-circle"></i>
           </a>
         </div>

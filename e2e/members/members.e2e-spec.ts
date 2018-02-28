@@ -1,22 +1,9 @@
 import { MembersPage } from './members.po';
 import { browser, by, Key, ExpectedConditions } from 'protractor';
 
-function testSelectedMember(page, member) {
-
-  expect(page.getSelectedMemberName()).toEqual(member.fullName);
-  expect(page.getSelectedMemberPosition()).toEqual(member.position);
-  if (member.since) {
-    expect(page.getSelectedMemberCreationYear()).toEqual(member.since);
-  }
-  expect(page.getSelectedMemberContact().count()).toEqual(member.contacts.size);
-
-  for (const contact of member.contacts) {
-    expect(page.getSelectedMemberContact().get(0).getText()).toEqual(contact.value);
-    expect(page.getSelectedMemberContact().get(0).element(by.tagName('i')).getAttribute('class')).toContain(contact.icon);
-  }
-}
-
 describe('[S001] Display members', () => {
+  const until = ExpectedConditions;
+  const timeout = 5000;
   let page: MembersPage;
 
   beforeEach(() => {
@@ -31,15 +18,12 @@ describe('[S001] Display members', () => {
 
     page.getMemberTableColumn(0, 1).element(by.linkText('Johnathan')).click();
 
-    testSelectedMember(page, {
-      fullName: 'Johnathan Cook',
-      position: 'Member',
-      since: '2018',
-      contacts: [{
-        icon: 'fa-envelope',
-        value: 'johnathan.cook@huscii.tld'
-      }, {}]
-    });
+    expect(page.getSelectedMemberName()).toEqual('Johnathan Cook');
+    expect(page.getSelectedMemberPosition()).toEqual('Member');
+    expect(page.getSelectedMemberCreationYear()).toEqual('2018');
+    expect(page.getSelectedMemberContact().count()).toEqual(2);
+    expect(page.getSelectedMemberContact().get(0).getText()).toEqual('johnathan.cook@huscii.tld');
+    expect(page.getSelectedMemberContact().get(0).element(by.tagName('i')).getAttribute('class')).toContain('fa-envelope');
   });
 
   it('[S001/T002] should find member', () => {
@@ -59,29 +43,19 @@ describe('[S001] Display members', () => {
   });
 
   it('[S001/T003] should add new member', () => {
-    const member1 = {
-      firstName: 'Max',
-      lastName: 'Mustermann',
-      boardMember: true,
-      contacts: []
-    };
-
     page.navigateTo();
 
     expect(page.getDialog().isPresent()).toBeFalsy();
-
     page.getNewButton().click();
     expect(page.getDialog().isPresent()).toBeTruthy();
 
-    page.getFirstNameIputField().sendKeys('Max');
-    page.getLastNameIputField().sendKeys('Mustermann');
-    if (member1.boardMember) {
-      page.getBoardMemberCb().click();
-    }
+    browser.sleep(400); // Unfortunatly sendKeys() is faster than browsers tabindex
+    page.getFirstNameInputField().sendKeys('Max');
+    page.getLastNameInputField().sendKeys('Mustermann');
+    page.getBoardMemberCb().click();
     page.getDialogSaveButton().click();
 
-    // TODO Replace with until
-    browser.sleep(1000);
+    browser.wait(until.presenceOf(page.getMemberTableRows().get(4)), timeout, 'New member taking too long to appear in the DOM');
 
     expect(page.getMemberTableRows().last().all(by.tagName('mat-cell'))
       .get(0).element(by.tagName('i')).getAttribute('class')).toContain('fa-star');
@@ -91,13 +65,74 @@ describe('[S001] Display members', () => {
       .get(2).getText()).toEqual('Mustermann');
     page.getMemberTableRows().last().all(by.tagName('mat-cell')).get(1).element(by.linkText('Max')).click();
 
-    testSelectedMember(page, {
-      fullName: member1.firstName + ' ' + member1.lastName,
-      position: 'Board Member',
-      since: undefined,
-      contacts: []
-    });
+    expect(page.getSelectedMemberName()).toEqual('Max Mustermann');
+    expect(page.getSelectedMemberPosition()).toEqual('Board Member');
 
-    browser.sleep(3000);
+    expect(page.getDialog().isPresent()).toBeFalsy();
+    page.getNewButton().click();
+    expect(page.getDialog().isPresent()).toBeTruthy();
+
+    browser.sleep(400); // Unfortunatly sendKeys() is faster than browsers tabindex
+    page.getFirstNameInputField().sendKeys('Erika');
+    browser.wait(until.textToBePresentInElementValue(page.getFirstNameInputField(), 'Erika'), timeout);
+    page.getLastNameInputField().sendKeys('Musterfrau');
+    browser.wait(until.textToBePresentInElementValue(page.getLastNameInputField(), 'Musterfrau'), timeout);
+    page.getContactInputRows().get(0).element(by.name('input-contact-type-0')).sendKeys('Telegram');
+    page.getContactInputRows().get(0).element(by.name('input-contact-value-0')).sendKeys('https://t.me/erika-musterfrau');
+    page.getDialogSaveButton().click();
+
+    browser.wait(until.presenceOf(page.getMemberTableRows().get(5)), timeout, 'New member taking too long to appear in the DOM');
+
+    expect(page.getSelectedMemberName()).toEqual('Erika Musterfrau');
+    expect(page.getSelectedMemberPosition()).toEqual('Member');
+    // expect(page.getSelectedMemberCreationYear()).toEqual(member.since);
+    expect(page.getSelectedMemberContact().count()).toEqual(1);
+    expect(page.getSelectedMemberContact().get(0).getText()).toEqual('https://t.me/erika-musterfrau');
+    expect(page.getSelectedMemberContact().get(0).element(by.tagName('i')).getAttribute('class')).toContain('fa-telegram');
+  });
+
+  it('[S001/T003] should delete member', () => {
+    page.navigateTo();
+
+    expect(page.getMemberTableRows().count()).toEqual(4);
+
+    page.getMemberTableColumn(0, 1).element(by.linkText('Johnathan')).click();
+    page.getEditBtn().click();
+
+    expect(page.getRemoveMessage().isPresent()).toBeFalsy();
+    page.getRemoveCb().click();
+    expect(page.getRemoveMessage().isPresent()).toBeTruthy();
+    page.getDialogSaveButton().click();
+
+    browser.wait(until.not(until.presenceOf(page.getSelectedMember())), timeout, 'Selected member taking too long to delete');
+    expect(page.getSelectedMember().isPresent()).toBeFalsy();
+    expect(page.getMemberTableRows().count()).toEqual(3);
+  });
+
+  it('[S001/T004] should edit member', () => {
+    page.navigateTo();
+
+    page.getMemberTableColumn(0, 1).element(by.linkText('Johnathan')).click();
+    page.getEditBtn().click();
+
+    browser.sleep(400);
+    page.getFirstNameInputField().clear().then(() => page.getFirstNameInputField().sendKeys('Erika'));
+    page.getLastNameInputField().clear().then(() => page.getLastNameInputField().sendKeys('Musterfrau'));
+    page.getBoardMemberCb().click();
+    expect(page.getContactInputRows().count()).toEqual(2);
+    page.getContactInputRows().get(0).element(by.id('btn-add-contact-0')).click();
+    expect(page.getContactInputRows().count()).toEqual(3);
+    page.getContactInputRows().last().element(by.name('input-contact-type-2')).sendKeys('Telegram');
+    page.getContactInputRows().last().element(by.name('input-contact-value-2')).sendKeys('https://t.me/erika-musterfrau');
+    page.getContactInputRows().get(1).element(by.id('btn-remove-contact-1')).click();
+    expect(page.getContactInputRows().count()).toEqual(2);
+    page.getDialogSaveButton().click();
+
+    browser.wait(until.textToBePresentInElement(page.getSelectedMember().element(by.tagName('mat-card-title')), 'Erika Musterfrau'),
+      timeout, 'Selected member taking too long to update');
+    expect(page.getSelectedMemberName()).toEqual('Erika Musterfrau');
+    expect(page.getSelectedMemberContact().count()).toEqual(2);
+    expect(page.getSelectedMemberContact().get(1).getText()).toEqual('https://t.me/erika-musterfrau');
+    expect(page.getSelectedMemberContact().get(1).element(by.tagName('i')).getAttribute('class')).toContain('fa-telegram');
   });
 });

@@ -34,7 +34,7 @@ export class MembersPage {
   }
 
   getEditBtn(): ElementFinder {
-    return this.getSelectedMember().element(by.css('button.mat-mini-fab mat-accent'));
+    return this.getSelectedMember().element(by.id('member-remove-btn'));
   }
 
   getSelectedMemberPosition(): promise.Promise<string> {
@@ -61,20 +61,28 @@ export class MembersPage {
     return element(by.css('h5')).getText();
   }
 
-  getFirstNameIputField(): ElementFinder {
+  getFirstNameInputField(): ElementFinder {
     return this.getDialog().element(by.name('input-first-name'));
   }
 
-  getLastNameIputField(): ElementFinder {
+  getLastNameInputField(): ElementFinder {
     return this.getDialog().element(by.name('input-last-name'));
   }
 
   getBoardMemberCb(): ElementFinder {
-    return this.getDialog().element(by.name('cp-board-member'));
+    return this.getDialog().element(by.name('cb-board-member'));
   }
 
   getContactInputRows(): ElementArrayFinder {
     return this.getDialog().all(by.className('form-array-contact-item'));
+  }
+
+  getRemoveCb(): ElementFinder {
+    return this.getDialog().element(by.name('cb-remove'));
+  }
+
+  getRemoveMessage(): ElementFinder {
+    return this.getDialog().element(by.className('remove-notification'));
   }
 
   getDialogSaveButton(): ElementFinder {

@@ -3,8 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MembersComponent } from './members.component';
 
+// const MEMBER_ROUTES: Routes = [ <- This breaks compodoc generation
 /** Member module routes */
-const MEMBER_ROUTES: Routes = [
+const MEMBER_ROUTES = [
   { path: '', component: MembersComponent },
 ];
 
