@@ -1,9 +1,9 @@
 <div class="row pb-3">
   <div class="col-12">
-    <mat-card>
+    <mat-card id="member-filter">
       <div class="d-flex flex-row">
         <mat-form-field class="mr-auto pr-3 w-100" style="margin-bottom: -1.25rem">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" i18n-placeholder="@@filter">
+          <input name="member-filter" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" i18n-placeholder="@@filter">
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="onAdd()">
           <i class="fa fa-plus"></i>

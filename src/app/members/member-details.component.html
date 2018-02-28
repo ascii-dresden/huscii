@@ -11,11 +11,11 @@
       <dt class="h5" *ngIf="!boardMember" i18n>Member</dt>
       <dd>{{ fullName }}</dd>
       <dt i18n>Since</dt>
-      <dd>{{ createdAt | date:'y' }}</dd>
+      <dd id="member-since">{{ createdAt | date:'y' }}</dd>
       <dt i18n>Contact</dt>
       <dd>
         <ul class="fa-ul">
-          <li *ngFor="let contact of contacts">
+          <li class="member-contact-item" *ngFor="let contact of contacts">
             <i [ngClass]="'fa-li fa fa-' + contactIcon(contact.type)"></i>{{ contact.value }}
           </li>
         </ul>
