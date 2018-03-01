@@ -9,7 +9,7 @@ describe('MemberInMemDataService', () => {
     });
   });
 
-  it('should be created', inject([MemberInMemDataService], (service: MemberInMemDataService) => {
+  it('[MemberInMemDataService/T001] should be created', inject([MemberInMemDataService], (service: MemberInMemDataService) => {
     expect(service).toBeTruthy();
   }));
 });

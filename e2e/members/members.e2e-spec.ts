@@ -1,7 +1,7 @@
 import { MembersPage } from './members.po';
 import { browser, by, Key, ExpectedConditions } from 'protractor';
 
-describe('[S001] Display members', () => {
+describe('[S001] Members page', () => {
   const until = ExpectedConditions;
   const timeout = 5000;
   let page: MembersPage;

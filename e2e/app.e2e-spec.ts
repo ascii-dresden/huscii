@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('huscii App', () => {
+describe('[S000] Huscii home page', () => {
   let page: AppPage;
 
   beforeEach(() => {

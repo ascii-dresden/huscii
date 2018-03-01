@@ -7,6 +7,14 @@ import { Subscription } from 'rxjs/Subscription';
 import { MemberService } from './member.service';
 import { Logger } from './logger.service';
 import { MemberInMemDataService } from '@app/core/member-in-mem-data.service';
+import { Injectable } from '@angular/core';
+
+@Injectable()
+class NoopLogger {
+  log(value: any, ...rest: any[]): void { }
+  warn(value: any, ...rest: any[]): void { }
+  error(value: any, ...rest: any[]): void { }
+}
 
 describe('MemberService', () => {
   let memberService: MemberService;
@@ -18,7 +26,7 @@ describe('MemberService', () => {
         HttpClientInMemoryWebApiModule.forFeature(MemberInMemDataService),
       ],
       providers: [
-        Logger,
+        { provide: Logger, useClass: NoopLogger },
         MemberService,
       ]
     });
@@ -41,6 +49,32 @@ describe('MemberService', () => {
       expect(member).toBeTruthy();
       expect(member.id).toBe(1);
       expect(member.firstName).toBe('Marcella');
+    });
+  }));
+
+  it('[MemberService/T004] should delete memeber w/ id=1', async(() => {
+    memberService.findAll().subscribe(data => {
+      expect(data.length).toEqual(4);
+      expect(data[1].firstName).toEqual('Marcella');
+    });
+    memberService.delete(1).subscribe();
+    memberService.findAll().subscribe(data => {
+      expect(data.length).toEqual(3);
+      expect(data[1].firstName).toEqual('Nina');
+    });
+  }));
+
+  it('[MemberSerivce/T005] should edit member w/ id=1', async(() => {
+    memberService.find(1).subscribe(data => {
+      expect(data.firstName).toBe('Marcella');
+      data.firstName = 'Erika';
+      data.lastName = 'Mustermann';
+      memberService.update(data).subscribe();
+    });
+    memberService.find(1).subscribe(data => {
+      expect(data.id).toEqual(1);
+      expect(data.firstName).toEqual('Erika');
+      expect(data.lastName).toEqual('Musterfrau');
     });
   }));
 });
