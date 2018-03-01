@@ -1,14 +1,14 @@
 import { AppPage } from './app.po';
 
-describe('huscii App', () => {
+describe('[S000] Huscii home page', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('[S000/T001] should display application title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to ascii!');
+    expect(page.getApplicationTitle()).toEqual('Huscii');
   });
 });

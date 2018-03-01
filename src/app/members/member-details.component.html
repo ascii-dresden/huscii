@@ -1,0 +1,25 @@
+<mat-card class="mat-elevation-z6">
+  <ascii-card-header>
+    <mat-card-title class="mr-auto">{{ fullName }}</mat-card-title>
+    <button id="member-remove-btn" mat-mini-fab color="accent" (click)="onEdit()">
+      <i class="fa fa-pencil"></i>
+    </button>
+  </ascii-card-header>
+  <mat-card-content class="mt-3">
+    <dl>
+      <dt class="h5" *ngIf="boardMember" i18n>Board Member</dt>
+      <dt class="h5" *ngIf="!boardMember" i18n>Member</dt>
+      <dd>{{ fullName }}</dd>
+      <dt i18n>Since</dt>
+      <dd id="member-since">{{ createdAt | date:'y' }}</dd>
+      <dt i18n>Contact</dt>
+      <dd>
+        <ul class="fa-ul">
+          <li class="member-contact-item" *ngFor="let contact of contacts">
+            <i [ngClass]="'fa-li fa fa-' + contactIcon(contact.type)"></i>{{ contact.value }}
+          </li>
+        </ul>
+      </dd>
+    </dl>
+  </mat-card-content>
+</mat-card>

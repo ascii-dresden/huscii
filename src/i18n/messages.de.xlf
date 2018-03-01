@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en">
+  <file original="ng.template" id="ngi18n">
+    <unit id="4691887509600985309">
+      <notes>
+        <note category="location">app/app.component.ts:4</note>
+      </notes>
+      <segment>
+        <source>Members</source>
+        <target>Mitglieder</target>
+      </segment>
+    </unit>
+    <unit id="5105557512709552795">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:2</note>
+      </notes>
+      <segment>
+        <source>Add Member</source>
+        <target>Neues Mitlgied</target>
+      </segment>
+    </unit>
+    <unit id="4470013530167002092">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:3</note>
+      </notes>
+      <segment>
+        <source>Edit <ph id="0" equiv="INTERPOLATION" disp="{{ name }}"/></source>
+        <target><ph id="0" equiv="INTERPOLATION" disp="{{ name }}"/> bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="firstName">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:6</note>
+        <note category="location">app/members/members.component.ts:35</note>
+      </notes>
+      <segment>
+        <source>Given Name</source>
+        <target>Vorname</target>
+      </segment>
+    </unit>
+    <unit id="lastName">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:9</note>
+        <note category="location">app/members/members.component.ts:42</note>
+      </notes>
+      <segment>
+        <source>Sur Name</source>
+        <target>Nachname</target>
+      </segment>
+    </unit>
+    <unit id="2178387824018081109">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:11</note>
+        <note category="location">app/members/member-details.component.ts:10</note>
+      </notes>
+      <segment>
+        <source>Board Member</source>
+        <target>Vorstandsmitglied</target>
+      </segment>
+    </unit>
+    <unit id="type">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:19</note>
+      </notes>
+      <segment>
+        <source>Type</source>
+        <target>Typ</target>
+      </segment>
+    </unit>
+    <unit id="value">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:24</note>
+      </notes>
+      <segment>
+        <source>Value</source>
+        <target>Wert</target>
+      </segment>
+    </unit>
+    <unit id="8706043571193892070">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:41</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{ name }}"/> will be removed on save.</source>
+        <target><ph id="0" equiv="INTERPOLATION" disp="{{ name }}"/> wird beim Speichern entfernt.</target>
+      </segment>
+    </unit>
+    <unit id="4814285799071780083">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:44</note>
+      </notes>
+      <segment>
+        <source>Remove</source>
+        <target>Entfernen</target>
+      </segment>
+    </unit>
+    <unit id="3768927257183755959">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:49</note>
+      </notes>
+      <segment>
+        <source>Save</source>
+        <target>Speichern</target>
+      </segment>
+    </unit>
+    <unit id="2159130950882492111">
+      <notes>
+        <note category="location">app/members/add-edit-member-dialog.component.ts:50</note>
+      </notes>
+      <segment>
+        <source>Cancel</source>
+        <target>Abbrechen</target>
+      </segment>
+    </unit>
+    <unit id="filter">
+      <notes>
+        <note category="location">app/members/members.component.ts:6</note>
+      </notes>
+      <segment>
+        <source>Filter</source>
+        <target>Suchen</target>
+      </segment>
+    </unit>
+    <unit id="3249513483374643425">
+      <notes>
+        <note category="location">app/members/members.component.ts:10</note>
+      </notes>
+      <segment>
+        <source>Add</source>
+        <target>Neu</target>
+      </segment>
+    </unit>
+    <unit id="6443530207724423452">
+      <notes>
+        <note category="location">app/members/members.component.ts:21</note>
+      </notes>
+      <segment>
+        <source>Member List</source>
+        <target>Mitgliederliste</target>
+      </segment>
+    </unit>
+    <unit id="6297950127540572260">
+      <notes>
+        <note category="location">app/members/member-details.component.ts:11</note>
+      </notes>
+      <segment>
+        <source>Member</source>
+        <target>Mitglied</target>
+      </segment>
+    </unit>
+    <unit id="7627583106648525877">
+      <notes>
+        <note category="location">app/members/member-details.component.ts:13</note>
+      </notes>
+      <segment>
+        <source>Since</source>
+        <target>Seit</target>
+      </segment>
+    </unit>
+    <unit id="7922989125096435449">
+      <notes>
+        <note category="location">app/members/member-details.component.ts:15</note>
+      </notes>
+      <segment>
+        <source>Contact</source>
+        <target>Kontakt</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

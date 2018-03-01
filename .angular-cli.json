@@ -19,6 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "ascii",
       "styles": [
+        "../node_modules/font-awesome/css/font-awesome.min.css",
         "styles.scss"
       ],
       "scripts": [],
@@ -58,6 +59,9 @@
   },
   "defaults": {
     "styleExt": "scss",
+    "build": {
+      "showCircularDependencies": false
+    },
     "component": {
       "inlineStyle": true}
   }
