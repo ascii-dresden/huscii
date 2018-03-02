@@ -65,8 +65,9 @@ describe('[S001] Members page', () => {
       .get(2).getText()).toEqual('Mustermann');
     page.getMemberTableRows().last().all(by.tagName('mat-cell')).get(1).element(by.linkText('Max')).click();
 
-    expect(page.getSelectedMemberName()).toEqual('Max Mustermann');
     expect(page.getSelectedMemberPosition()).toEqual('Board Member');
+    expect(page.getSelectedMemberName()).toEqual('Max Mustermann');
+    expect(page.getSelectedMemberCreationYear()).toEqual('2018');
 
     expect(page.getDialog().isPresent()).toBeFalsy();
     page.getNewButton().click();
@@ -101,7 +102,7 @@ describe('[S001] Members page', () => {
 
     expect(page.getRemoveMessage().isPresent()).toBeFalsy();
     page.getRemoveCb().click();
-    expect(page.getRemoveMessage().isPresent()).toBeTruthy();
+    browser.wait(until.presenceOf(page.getRemoveMessage()), timeout, 'Remove message taking too long to show');
     page.getDialogSaveButton().click();
 
     browser.wait(until.not(until.presenceOf(page.getSelectedMember())), timeout, 'Selected member taking too long to delete');

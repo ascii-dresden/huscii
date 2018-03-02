@@ -9,4 +9,7 @@ var memberShema = new mongoose.Schema({
   meta:        { hidden: Boolean }
 }, { timestamps: true });
 
+memberShema.virtual('id').get(function () { return this._id.toHexString() });
+memberShema.set('toJSON', { virtuals: true });
+
 module.exports = mongoose.model('Member', memberShema);

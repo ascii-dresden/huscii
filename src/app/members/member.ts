@@ -29,10 +29,10 @@ export class Member {
   boardMember: false;
 
   /** Created timestamp */
-  createdAt: string;
+  createdAt: string = new Date().toISOString();
 
   /** Updated timestamp */
-  updatedAt: string;
+  updatedAt: string = new Date().toISOString();
 
   /** Meta */
   meta: Meta = new Meta();

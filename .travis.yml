@@ -30,10 +30,10 @@ install:
 - yarn install
 
 script:
-- ng lint
-- ng test --sr
-- ng e2e --aot
-- ng build --aot
+- yarn run lint
+- yarn run test:sr
+- yarn run e2e
+- yarn run build
 
 notifications:
   email:
