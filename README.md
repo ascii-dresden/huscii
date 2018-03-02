@@ -6,8 +6,8 @@
 Huscii is built with [Angular 5](https://angular.io).
 
 [![travis](https://travis-ci.org/ascii-dresden/huscii.svg?branch=master)](https://travis-ci.org/ascii-dresden/huscii/)
-[![dependency Status](https://david-dm.org/ascii-dresden/huscii.svg)](https://david-dm.org/ascii-dresden/huscii)
-[![devDependency Status](https://david-dm.org/ascii-dresden/huscii/dev-status.svg)](https://david-dm.org/ascii-dresden/huscii?type=dev)
+[![dependencies Status](https://david-dm.org/ascii-dresden/huscii/status.svg)](https://david-dm.org/ascii-dresden/huscii)
+[![devDependencies Status](https://david-dm.org/ascii-dresden/huscii/dev-status.svg)](https://david-dm.org/ascii-dresden/huscii?type=dev)
 
 [![GitHub forks](https://img.shields.io/github/forks/ascii-dresden/huscii.svg?style=social&label=Fork)](https://github.com/ascii-dresden/huscii/fork)
 [![GitHub stars](https://img.shields.io/github/stars/ascii-dresden/huscii.svg?style=social&label=Star)](https://github.com/ascii-dresden/huscii)
