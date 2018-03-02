@@ -1,14 +1,16 @@
+sudo: required
 dist: trusty
+addons:
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
 
 language: node_js
 node_js:
+- 7
 - 8
-
-env:
-- MOZ_HEADLESS=1
-
-addons:
-  firefox: latest
 
 branches:
   only:
@@ -16,18 +18,22 @@ branches:
 
 cache:
   directories:
-  - "node_modules"
+  - node_modules
 
 before_script:
-- "yarn global add @angular/cli"
-- "export DISPLAY=:99.0"
-- "sh -e /etc/init.d/xvfb start"
+- yarn global add @angular/cli
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 - sleep 3
+
+install:
+- yarn install
 
 script:
 - ng lint
 - ng test --sr
-- ng build
+- ng e2e --aot
+- ng build --aot
 
 notifications:
   email:
