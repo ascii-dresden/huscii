@@ -35,26 +35,28 @@ exports.config = {
   },
   params: {
     testdata: {
-      members: [{
-        firstName: 'Max',
-        lastName: 'Mustermann',
+      member: {
+        firstName: 'Bartholomew',
+        lastName: 'Hicks',
+        fullName: function (member) {
+          return member.firstName + ' ' + member.lastName;
+        },
         boardMember: false,
+        contactIcon: function (member, i) {
+          const type = member.contacts[i].type.toLowerCase();
+          if (type && type === 'email') {
+            return 'fa-envelope';
+          }
+          return 'fa-' + type;
+        },
         contacts: [{
           type: 'Phone',
           value: '0123123123'
         }, {
           type: 'Email',
-          value: 'max.mustermann@huscii.git'
+          value: 'bartholomew.hicks@huscii.tld'
         }]
-      }, {
-        firstName: 'Erika',
-        lastName: 'Musterfrau',
-        boardMember: true,
-        contacts: [{
-          type: 'Twitter',
-          value: 'https://twitter.com/thisisjustfortests'
-        }]
-      }]
+      }
     }
   }
 };
