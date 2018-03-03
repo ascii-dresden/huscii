@@ -4,9 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 // const APP_ROUTES: Routes = [ <- This breaks compodoc generation
 /** Application routes */
 const APP_ROUTES = [
-  { path: '', redirectTo: 'members', pathMatch: 'full' },
+  { path: '', redirectTo: 'cash-book', pathMatch: 'full' },
   { path: 'members', loadChildren: 'app/members/members.module#MembersModule' },
-  { path: '**', redirectTo: 'members' },
+  { path: 'cash-book', loadChildren: 'app/cash-book/cash-book.module#CashBookModule' },
+  { path: '**', redirectTo: 'cash-book' },
 ];
 
 /** Application routes module */
