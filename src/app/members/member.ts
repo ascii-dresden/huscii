@@ -14,7 +14,7 @@ export class Contact {
 export class Member {
 
   /** Id */
-  id: number;
+  id: number | string;
 
   /** Given name */
   firstName: string;
@@ -26,7 +26,7 @@ export class Member {
   contacts: Contact[] = [];
 
   /** Whether the member is one of the three board members */
-  boardMember: false;
+  boardMember = false;
 
   /** Created timestamp */
   createdAt: string = new Date().toISOString();

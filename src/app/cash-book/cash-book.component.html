@@ -1,3 +1,47 @@
-<p>
-  cash-book works!
-</p>
+<div class="row pb-3">
+  <div class="col-12">
+    <mat-card id="business-day-filter">
+      <div class="d-flex flex-row">
+        <mat-form-field class="mr-auto pr-3 w-100">
+          <input name="business-day-filter" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" i18n-placeholder="@@filter">
+        </mat-form-field>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 pb-3">
+    <mat-card>
+      <ascii-card-header class="d-flex">
+        <mat-card-title class="mr-auto" i18n>Cash Book</mat-card-title>
+        <!-- TODO: Member List export -->
+        <!-- <button mat-mini-fab color="secondary"><mat-icon>archive</mat-icon></button> -->
+      </ascii-card-header>
+      <mat-card-content>
+        <mat-table #table [dataSource]="dataSource" matSort matSortDirection="desc" matSortDisableClear="true" matSortActive="date">
+          <ng-container matColumnDef="date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@date">Date</mat-header-cell>
+            <mat-cell *matCellDef="let day">{{ day.date | date }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="balanceAM">
+            <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@balanceAM">Balance AM</mat-header-cell>
+            <mat-cell *matCellDef="let day">{{ day.balanceAM / 100 | currency:currencyCode }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="balancePM">
+            <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@balancePM">Balance PM</mat-header-cell>
+            <mat-cell *matCellDef="let day">{{ day.balancePM / 100 | currency:currencyCode }}</mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </mat-card-content>
+      <mat-card-actions>
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 20]" [showFirstLastButtons]="true"></mat-paginator>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

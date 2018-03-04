@@ -5,5 +5,6 @@
 
 /** Development environment configuration object */
 export const environment = {
-  production: false
+  production: false,
+  currencyCode: 'EUR'
 };

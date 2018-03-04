@@ -1,4 +1,5 @@
 /** Production environment configuration object */
 export const environment = {
-  production: true
+  production: true,
+  currencyCode: 'EUR'
 };

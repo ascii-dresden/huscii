@@ -53,6 +53,7 @@
     "@compodoc/compodoc": "^1.0.7",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
+    "@types/jquery": "^3.3.0",
     "@types/node": "~9.4.6",
     "angular-in-memory-web-api": "^0.5.3",
     "codelyzer": "^4.0.1",

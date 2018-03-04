@@ -7,8 +7,9 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { environment } from '@env/environment';
 
 import { Logger } from './logger.service';
-import { MemberInMemDataService } from './member-in-mem-data.service';
+import { InMemoryDatabase } from './in-mem-database.service';
 import { MemberService } from './member.service';
+import { CashBookService } from './cash-book.service';
 import { EmitterService } from './emitter.service';
 
 /** CodeModule contains all general singelton services and modules. */
@@ -16,12 +17,13 @@ import { EmitterService } from './emitter.service';
   imports: [
     CommonModule,
     HttpClientModule,
-    environment.production ? [] : HttpClientInMemoryWebApiModule.forFeature(MemberInMemDataService),
+    environment.production ? [] : HttpClientInMemoryWebApiModule.forFeature(InMemoryDatabase),
   ],
   providers: [
     Logger,
     EmitterService,
-    MemberService
+    MemberService,
+    CashBookService,
   ]
 })
 export class CoreModule {
