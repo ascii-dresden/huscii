@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BigNumber } from 'bignumber.js';
 import { InMemoryDbService, RequestInfo } from 'angular-in-memory-web-api';
 
 import { Observable } from 'rxjs/Observable';
@@ -24,7 +23,6 @@ export class InMemoryDatabase implements InMemoryDbService {
 
   /**
    * Returns an email address.
-   *
    * @param {string} first Members given name
    * @param {string} last Members surname
    * @returns {string} Mock email address
@@ -33,30 +31,28 @@ export class InMemoryDatabase implements InMemoryDbService {
     return first.toLowerCase() + '.' + last.toLowerCase() + '@huscii.tld';
   }
 
-  /** Returns a random phone number */
+  /** Returns a random phone number.
+   * @returns {number} Random phone fake phone number
+   */
   getPhone(): string {
     return '01' + Math.floor(200000000 + Math.random() * 900000000).toString();
   }
 
-  round(value, decimals) {
-    return;
-  }
-
+  /**
+   * Sums every unit times its own value.
+   * @param units Units
+   */
   calcPMBalance(...units: Unit[]): number {
     let balance = 0;
-
     for (const unit of units) {
       balance += unit.amount * unit.value;
     }
-
     return balance;
   }
 
   /**
    * Creates an in memory database.
-   *
    * @param {RequestInfo} reqInfo Request information
-   *
    * @returns {{} | Observable<{}> | Promise<{}>} Either Object, Observable or Promise depending on preffered
    * data processing preferences.
    */
@@ -85,7 +81,7 @@ export class InMemoryDatabase implements InMemoryDbService {
       members.push(member as Member);
     }
 
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < 2000; i++) {
       const now = new Date();
       const hundered = new Unit(10000, Math.floor(Math.random() * 2));
       const fifty = new Unit(5000, Math.floor(Math.random() * 3));
@@ -104,11 +100,11 @@ export class InMemoryDatabase implements InMemoryDbService {
         half, fifth, tenth, twentieth, fiftieth, hundredth);
 
       const day = new BusinessDay();
-      day.id = i;
-      day.date = now.setDate(now.getDate() + (i - 20));
+      day.id = 2000 - i;
+      day.date = now.setDate(now.getDate() - i);
       day.balanceAM = 10000;
       day.balancePM = balance,
-      day.hundered = hundered;
+        day.hundered = hundered;
       day.fifty = fifty;
       day.twenty = twenty;
       day.ten = ten;

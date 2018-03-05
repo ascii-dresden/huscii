@@ -249,6 +249,10 @@
     semver "^5.3.0"
     semver-intersect "^1.1.2"
 
+"@tweenjs/tween.js@^17.1.0":
+  version "17.2.0"
+  resolved "https://registry.yarnpkg.com/@tweenjs/tween.js/-/tween.js-17.2.0.tgz#21f89b709bafc4b303adae7a83b4f35a0d9e4796"
+
 "@types/jasmine@*", "@types/jasmine@~2.8.3":
   version "2.8.6"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.8.6.tgz#14445b6a1613cf4e05dd61c3c3256d0e95c0421e"
@@ -401,6 +405,12 @@ amqplib@^0.5.2:
 angular-in-memory-web-api@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/angular-in-memory-web-api/-/angular-in-memory-web-api-0.5.3.tgz#49ba7b7d19210e14b0dbe62d2e3b63d4b4a29c4a"
+
+angular2-virtual-scroll@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/angular2-virtual-scroll/-/angular2-virtual-scroll-0.3.2.tgz#0bd8312f9d3cf69f326ebd7dbb72a007cdf21ccd"
+  dependencies:
+    "@tweenjs/tween.js" "^17.1.0"
 
 ansi-colors@^1.0.1:
   version "1.1.0"

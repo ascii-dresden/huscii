@@ -6,11 +6,23 @@ import { CashBookService } from '@app/core';
 import { environment } from '@env/environment';
 
 import { BusinessDay } from './business-day';
+import { VirtualScrollComponent } from 'angular2-virtual-scroll';
 
 @Component({
   selector: 'ascii-cash-book',
   templateUrl: './cash-book.component.html',
-  styles: []
+  styles: [`
+  virtual-scroll {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 650px;
+  }
+  list-item {
+    display: block;
+    width: 100%;
+  }
+  `]
 })
 export class CashBookComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -18,7 +30,7 @@ export class CashBookComponent implements OnInit, AfterViewInit, OnDestroy {
   private _sub = new Subscription();
 
   /** Fetched cash book */
-  cashBook: BusinessDay[] = [];
+  cashBook: BusinessDay[];
 
   /** Displayed columns in member table */
   displayedColumns = ['date', 'balanceAM', 'balancePM'];
@@ -26,14 +38,13 @@ export class CashBookComponent implements OnInit, AfterViewInit, OnDestroy {
   /** Member table data source */
   dataSource = new MatTableDataSource<BusinessDay>(this.cashBook);
 
-  /** Selected member from the table */
-  selectedDay: BusinessDay;
-
   /** Sort property */
   @ViewChild(MatSort) sort: MatSort;
 
   /** Paginator property */
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  @ViewChild(VirtualScrollComponent) virtualScroll: VirtualScrollComponent;
 
   currencyCode = environment.currencyCode;
 
@@ -63,8 +74,8 @@ export class CashBookComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /** Selects a day from the table */
-  selectMember(day: BusinessDay | undefined) {
-    this.selectedDay = day;
+  moveTo(day: BusinessDay | undefined) {
+    this.virtualScroll.scrollInto(day);
   }
 
   /** Gets cash book from the http data service */

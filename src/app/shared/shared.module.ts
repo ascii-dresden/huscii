@@ -17,6 +17,7 @@ import {
   MatDividerModule,
   MatPaginatorIntl,
 } from '@angular/material';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
 
 import { MatPaginatorIntlImpl } from './mat-paginator-intl-impl';
 import { MatCardHeaderComponent } from './mat-card-header/mat-card-header.component';
@@ -48,6 +49,7 @@ import { MatCardHeaderComponent } from './mat-card-header/mat-card-header.compon
     MatDialogModule,
     MatCheckboxModule,
     MatDividerModule,
+    VirtualScrollModule,
   ],
   exports: [
     CommonModule,
@@ -67,11 +69,12 @@ import { MatCardHeaderComponent } from './mat-card-header/mat-card-header.compon
     MatDialogModule,
     MatCheckboxModule,
     MatDividerModule,
+    VirtualScrollModule,
 
-    MatCardHeaderComponent
+    MatCardHeaderComponent,
   ],
   declarations: [
-    MatCardHeaderComponent
+    MatCardHeaderComponent,
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlImpl }

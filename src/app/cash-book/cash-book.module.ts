@@ -5,6 +5,7 @@ import { SharedModule } from '@app/shared';
 
 import { CashBookRoutingModule } from './cash-book-routing.module';
 import { CashBookComponent } from './cash-book.component';
+import { BusinessDayComponent } from './business-day.component';
 
 /** Lazy loading cash book module. */
 @NgModule({
@@ -13,7 +14,8 @@ import { CashBookComponent } from './cash-book.component';
     CashBookRoutingModule,
   ],
   declarations: [
-    CashBookComponent
+    CashBookComponent,
+    BusinessDayComponent,
   ]
 })
 export class CashBookModule { }
