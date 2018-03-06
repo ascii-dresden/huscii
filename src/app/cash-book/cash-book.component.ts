@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+
 import { Subscription } from 'rxjs/Subscription';
 
 import { CashBookService } from '@app/core';
@@ -37,6 +38,8 @@ export class CashBookComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /** Member table data source */
   dataSource = new MatTableDataSource<BusinessDay>(this.cashBook);
+
+  showAdd = true;
 
   /** Sort property */
   @ViewChild(MatSort) sort: MatSort;
@@ -83,6 +86,18 @@ export class CashBookComponent implements OnInit, AfterViewInit, OnDestroy {
     this.service.findAll().subscribe(data => {
       this.cashBook = data;
       this.dataSource.data = data;
+      if (environment.production && data) {
+        let latestEntry: Date;
+        if (typeof data[0].date === 'number') {
+          latestEntry = new Date(data[0].date as number);
+        } else {
+          latestEntry = new Date(data[0].date as string);
+        }
+
+        if (latestEntry.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)) {
+          this.showAdd = false;
+        }
+      }
     });
   }
 }

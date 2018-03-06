@@ -101,7 +101,7 @@ export class InMemoryDatabase implements InMemoryDbService {
 
       const day = new BusinessDay();
       day.id = 2000 - i;
-      day.date = now.setDate(now.getDate() - i);
+      day.date = now.setDate(now.getDate() - i - 1);
       day.balanceAM = 10000;
       day.balancePM = balance,
         day.hundered = hundered;

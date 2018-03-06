@@ -2,9 +2,13 @@
   <div class="col-12">
     <mat-card id="business-day-filter">
       <div class="d-flex flex-row">
-        <mat-form-field class="mr-auto pr-3 w-100">
+        <mat-form-field class="mr-auto pr-3 w-100" style="margin-bottom: -1.25rem">
           <input name="business-day-filter" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" i18n-placeholder="@@filter">
         </mat-form-field>
+        <button mat-raised-button color="primary" *ngIf="showAdd" routerLink="new">
+          <i class="fa fa-plus"></i>
+          <span i18n>Add</span>
+        </button>
       </div>
     </mat-card>
   </div>
